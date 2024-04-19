@@ -2,11 +2,12 @@ from flask_wtf import FlaskForm
 from wtforms import  StringField, PasswordField, SubmitField, FileField
 from wtforms.validators import  DataRequired, Email, EqualTo, length, ValidationError
 from fakepinterest.models import Usuario
+from fakepinterest import bcrypt
 
 class FormLogin(FlaskForm):
     email = StringField("E-mail", validators=[DataRequired(), Email()])
     senha = PasswordField("Senha", validators=[DataRequired()])
-    botao_confirmacao  = SubmitField("Fazer login")
+    botao_confirmacao = SubmitField("Fazer login")
     def validate_email(self, email):
         usuario = Usuario.query.filter_by(email=email.data).first()
         if not usuario:
